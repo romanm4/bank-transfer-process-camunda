@@ -1,6 +1,5 @@
 server:
   port: 8888
-
 activemq:
   broker-url: tcp://172.16.1.50:61616
   user: admin
@@ -9,7 +8,6 @@ activemq:
     apache:
       activemq:
         SERIALIZABLE_PACKAGES: java.lang,javax.security,java.util,org.apache.activemq,org.fusesource.hawtbuf,com.thoughtworks.xstream.mapper,com.bank.transfer
-
 camunda.bpm:
   admin-user:
     id: kermit
@@ -17,3 +15,7 @@ camunda.bpm:
     firstName: Kermit
   filter:
     create: All tasks
+mock:
+  found:
+    client:
+      url: http://localhost:8080/mock/founds/client/1

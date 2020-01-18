@@ -1,4 +1,4 @@
-package com.bank.transfer.common;
+package com.bank.transfer.listener.model;
 
 import lombok.Builder;
 import lombok.Getter;

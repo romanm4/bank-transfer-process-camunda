@@ -5,5 +5,5 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Map;
 
 public interface IJsonConverter {
-    Map<String, Object> getConvertJsonToMap(Object json) throws JsonProcessingException;
+    Object getConvertJsonToObject(String json) throws JsonProcessingException;
 }

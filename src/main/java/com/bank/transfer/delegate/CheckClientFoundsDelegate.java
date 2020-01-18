@@ -25,8 +25,5 @@ public class CheckClientFoundsDelegate implements JavaDelegate {
         delegateExecution.setVariable("isLimit", true);
         delegateExecution.setVariable("isInsufficient", true);
         delegateExecution.setVariable("isRecipientExist", true);
-        delegateExecution.setVariable("getClientFoundsResponse", jsonConverter.getConvertJsonToMap(
-                        restConsumer.sendGetHttpMethod(url)
-                ));
     }
 }

@@ -13,8 +13,9 @@ public class JsonConverter implements IJsonConverter {
     @Autowired
     private ObjectMapper objectMapper;
 
+
     @Override
-    public Map<String, Object> getConvertJsonToMap(Object json) throws JsonProcessingException {
-        return objectMapper.readValue(objectMapper.writeValueAsString(json), Map.class);
+    public Object getConvertJsonToObject(String json) throws JsonProcessingException {
+        return objectMapper.readValue(json, Object.class);
     }
 }

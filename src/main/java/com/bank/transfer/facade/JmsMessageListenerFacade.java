@@ -1,5 +1,6 @@
 package com.bank.transfer.facade;
 
+import com.bank.transfer.listener.model.BankTransferMessageRequest;
 import com.bank.transfer.mapper.IJsonConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.camunda.bpm.engine.RuntimeService;
@@ -16,17 +17,9 @@ public class JmsMessageListenerFacade {
     @Autowired
     private RuntimeService runtimeService;
 
-    @Autowired
-    private IJsonConverter jsonConverter;
-
     public void startBankTransferProcess(ObjectMessage objectMessage) throws JsonProcessingException, JMSException {
-        runtimeService.startProcessInstanceByKey(
-                "bankTransferProcessId",
-                getInitProcessVariableByMessage(objectMessage.getObject())
-        );
+        BankTransferMessageRequest bankTransferMessageRequest = (BankTransferMessageRequest) objectMessage.getObject();
+        runtimeService.startProcessInstanceByKey("bankTransferProcessId");
     }
 
-    private Map<String, Object> getInitProcessVariableByMessage(Object message) throws JsonProcessingException {
-        return jsonConverter.getConvertJsonToMap(message);
-    }
 }

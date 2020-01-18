@@ -1,9 +1,9 @@
 package com.bank.transfer;
 
 
-import com.bank.transfer.common.BankTransferMessage;
-import com.bank.transfer.common.CurrencyType;
-import com.bank.transfer.common.TransferRecipient;
+import com.bank.transfer.listener.model.BankTransferMessageRequest;
+import com.bank.transfer.listener.model.CurrencyType;
+import com.bank.transfer.listener.model.TransferRecipient;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +16,8 @@ public class WebappBankTransferProcessApplication {
     public static void main(String... args) {
         ApplicationContext ctx = SpringApplication.run(WebappBankTransferProcessApplication.class, args);
         JmsTemplate jms = ctx.getBean(JmsTemplate.class);
-        BankTransferMessage bankTransferMessage =
-                BankTransferMessage.builder()
+        BankTransferMessageRequest bankTransferMessage =
+                BankTransferMessageRequest.builder()
                         .transferAmount(500)
                         .accountNumber("12364523426719284752938741")
                         .currencyType(CurrencyType.USD)

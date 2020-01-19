@@ -1,12 +1,12 @@
 package com.bank.transfer.listener.model;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
-import java.io.Serializable;
 
 @Getter
 @Setter
@@ -18,24 +18,14 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "accountNumber",
-        "transferAmount",
-        "currencyType",
-        "transferRecipient"
+        "founds"
 })
-public class BankTransferMessageRequest implements Serializable {
-
-    private static final long serialVersionUID = -295422703255886286L;
+public class ClientFoundsResponse {
 
     @JsonProperty("accountNumber")
     private String accountNumber;
 
-    @JsonProperty("transferAmount")
-    private double transferAmount;
-
-    @JsonProperty("currencyType")
-    private CurrencyType currencyType;
-
-    @JsonProperty("transferRecipient")
-    private TransferRecipient transferRecipient;
+    @JsonProperty("founds")
+    private String founds;
 
 }

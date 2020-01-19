@@ -1,4 +1,4 @@
-package com.bank.transfer.facade;
+package com.bank.transfer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

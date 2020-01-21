@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+
 @Component
 public class CheckClientFoundsFacade {
 
@@ -26,7 +27,7 @@ public class CheckClientFoundsFacade {
         delegateExecution.setVariable("isLimit", true);
         delegateExecution.setVariable("isInsufficient", true);
         delegateExecution.setVariable("isRecipientExist", true);
-        ResponseEntity<ClientFoundsResponse> responseResponseEntity =
+        ResponseEntity<ClientFoundsResponse> responseEntity =
                 restTemplate.exchange(url, HttpMethod.GET, httpEntity, ClientFoundsResponse.class);
     }
 

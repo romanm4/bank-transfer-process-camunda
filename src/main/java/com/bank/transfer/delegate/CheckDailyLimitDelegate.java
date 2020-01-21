@@ -9,6 +9,8 @@ public class CheckDailyLimitDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+        delegateExecution.setVariable("isLimit", true);
+        delegateExecution.setVariable("isRecipientExist", true);
         System.out.println("CheckDailyLimitDelegate");
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Component
-public class CheckClientFoundsFacade {
+public class CheckClientFoundsFacade extends AbstractTransferFacade {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -24,11 +24,14 @@ public class CheckClientFoundsFacade {
     private String url;
 
     public void executeCheckClientFounds(DelegateExecution delegateExecution) {
-        delegateExecution.setVariable("isLimit", true);
-        delegateExecution.setVariable("isInsufficient", true);
-        delegateExecution.setVariable("isRecipientExist", true);
         ResponseEntity<ClientFoundsResponse> responseEntity =
-                restTemplate.exchange(url, HttpMethod.GET, httpEntity, ClientFoundsResponse.class);
+                restTemplate.exchange(
+                        url + delegateExecution.getVariable("accountNumber"),
+                        HttpMethod.GET,
+                        httpEntity,
+                        ClientFoundsResponse.class
+                );
+        delegateExecution.setVariable("isInsufficient", true);
     }
 
 }

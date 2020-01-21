@@ -19,7 +19,7 @@ public class JmsMessageListenerFacade extends AbstractTransferFacade {
     public void startBankTransferProcess(ObjectMessage objectMessage) throws JsonProcessingException, JMSException {
         BankTransferMessageRequest bankTransferMessageRequest = (BankTransferMessageRequest) objectMessage.getObject();
         Map<String, Object> variables = getInitProcessVariableByObject(bankTransferMessageRequest);
-        runtimeService.startProcessInstanceByKey("bankTransferProcessId");
+        runtimeService.startProcessInstanceByKey("bankTransferProcessId", variables);
     }
 
 }

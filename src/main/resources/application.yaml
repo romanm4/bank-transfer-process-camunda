@@ -16,6 +16,5 @@ camunda.bpm:
   filter:
     create: All tasks
 mock:
-  found:
-    client:
-      url: http://localhost:8080/mock/founds/client/
+  soap:
+    check-possibility: http://localhost:8091/CheckPossibilityService/services/CheckPossibilityService

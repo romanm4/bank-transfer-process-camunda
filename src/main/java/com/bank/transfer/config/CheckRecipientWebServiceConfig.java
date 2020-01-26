@@ -6,7 +6,9 @@ import com.ws.check_recipient_in_system.ObjectFactory;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class CheckRecipientWebServiceConfig {
 
     @Value("${mock.soap.check-recipient}")

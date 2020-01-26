@@ -38,8 +38,6 @@ public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade 
     private void setInsufficientStatusByResponse(CheckPossibilityServiceResponse response, DelegateExecution delegateExecution) {
         if (response.getStatus().equals(ResponseConstants.CLIENT_FOUNDS_RESPONSE_STATUS))
             delegateExecution.setVariable(ProcessConstants.IS_INSUFFICIENT_PROCESS_VARIABLE, true);
-        else
-            delegateExecution.setVariable(ProcessConstants.IS_INSUFFICIENT_PROCESS_VARIABLE, false);
     }
 
 }

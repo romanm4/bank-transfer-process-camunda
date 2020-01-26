@@ -23,7 +23,6 @@ public class WebappBankTransferProcessApplication {
                         .currencyType(CurrencyType.USD)
                         .transferRecipient(TransferRecipient.builder()
                                 .accountNumber("134123123434637")
-                                .bankName("Millennium Bank")
                                 .build()).build();
         jms.convertAndSend("bank-transaction-queue-in", bankTransferMessage);
     }

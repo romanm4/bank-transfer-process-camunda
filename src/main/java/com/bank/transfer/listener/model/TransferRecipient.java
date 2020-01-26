@@ -23,7 +23,4 @@ public class TransferRecipient implements Serializable {
     @JsonProperty("accountNumber")
     private String accountNumber;
 
-    @JsonProperty("bankName")
-    private String bankName;
-
 }

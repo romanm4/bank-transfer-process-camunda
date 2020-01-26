@@ -1,4 +1,4 @@
-package com.bank.transfer.facade;
+package com.bank.transfer.facade.constant;
 
 public class ProcessConstants {
     public static final String IS_INSUFFICIENT_PROCESS_VARIABLE = "isInsufficient";

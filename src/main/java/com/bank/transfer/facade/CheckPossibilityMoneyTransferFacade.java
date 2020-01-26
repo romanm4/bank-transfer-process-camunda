@@ -1,5 +1,7 @@
 package com.bank.transfer.facade;
 
+import com.bank.transfer.facade.constant.ProcessConstants;
+import com.bank.transfer.facade.constant.ResponseConstants;
 import com.ws.check_possibility_service.CheckPossibilityServicePortType;
 import com.ws.check_possibility_service.CheckPossibilityServiceRequest;
 import com.ws.check_possibility_service.CheckPossibilityServiceResponse;
@@ -10,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade {
+public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade implements ISoapWebServiceFacade {
 
     @Autowired
     private CheckPossibilityServicePortType checkPossibilityServicePortType;
@@ -19,7 +21,8 @@ public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade 
     @Qualifier("checkPossibilityObjectFactory")
     private ObjectFactory objectFactory;
 
-    public void executeCheckClientFounds(DelegateExecution delegateExecution) {
+    @Override
+    public void invokeSoapWebService(DelegateExecution delegateExecution) {
         CheckPossibilityServiceRequest request =
                 getInitCheckPossibilityServiceRequest(delegateExecution);
         CheckPossibilityServiceResponse response = checkPossibilityServicePortType.checkPossibility(request);
@@ -39,5 +42,4 @@ public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade 
         if (response.getStatus().equals(ResponseConstants.CLIENT_FOUNDS_RESPONSE_STATUS))
             delegateExecution.setVariable(ProcessConstants.IS_INSUFFICIENT_PROCESS_VARIABLE, true);
     }
-
 }

@@ -39,7 +39,7 @@
       <bpmn:outgoing>SequenceFlow_0egcqwa</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0s9qbz7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_0t2iy6t" name="Get transfer amount" camunda:delegateExpression="${transferAmountDelegate}">
+    <bpmn:serviceTask id="Task_0t2iy6t" name="withdrawMoneyFromSendersCard" camunda:delegateExpression="${withdrawMoneyFromSendersCardDelegate}">
       <bpmn:incoming>SequenceFlow_0egcqwa</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_14b6yq4</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -60,7 +60,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1depja9">
       <bpmndi:BPMNShape id="Participant_037mm9r_di" bpmnElement="bankTransferProcess" isHorizontal="true">
-        <dc:Bounds x="160" y="80" width="1470" height="350" />
+        <dc:Bounds x="160" y="80" width="1440" height="350" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0bj7s4q_di" bpmnElement="StartEvent_0bj7s4q">
         <dc:Bounds x="262" y="192" width="36" height="36" />

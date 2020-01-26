@@ -1,4 +1,4 @@
-package com.bank.transfer.facade;
+package com.bank.transfer.facade.constant;
 
 public class ResponseConstants {
     public static final String CLIENT_FOUNDS_RESPONSE_STATUS = "Success";

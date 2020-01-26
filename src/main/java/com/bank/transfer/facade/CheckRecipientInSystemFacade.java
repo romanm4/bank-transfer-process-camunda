@@ -1,5 +1,7 @@
 package com.bank.transfer.facade;
 
+import com.bank.transfer.facade.constant.ProcessConstants;
+import com.bank.transfer.facade.constant.ResponseConstants;
 import com.ws.check_recipient_in_system.CheckRecipientServicePortType;
 import com.ws.check_recipient_in_system.CheckRecipientServiceRequest;
 import com.ws.check_recipient_in_system.CheckRecipientServiceResponse;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class CheckRecipientInSystemFacade extends AbstractTransferFacade {
+public class CheckRecipientInSystemFacade extends AbstractTransferFacade implements ISoapWebServiceFacade {
 
     @Autowired
     private CheckRecipientServicePortType checkRecipientServicePortType;
@@ -21,7 +23,8 @@ public class CheckRecipientInSystemFacade extends AbstractTransferFacade {
     @Qualifier("checkRecipientObjectFactory")
     private ObjectFactory objectFactory;
 
-    public void executeCheckRecipient(DelegateExecution delegateExecution) {
+    @Override
+    public void invokeSoapWebService(DelegateExecution delegateExecution) {
         CheckRecipientServiceRequest request = getInitCheckRecipientServiceRequest(delegateExecution);
         CheckRecipientServiceResponse response = checkRecipientServicePortType.checkRecipient(request);
         setRecipientExistStatusByResponse(response, delegateExecution);
@@ -39,5 +42,4 @@ public class CheckRecipientInSystemFacade extends AbstractTransferFacade {
         if (response.getStatus().equals(ResponseConstants.TRANSFER_RECIPIENT_RESPONSE_STATUS))
             delegateExecution.setVariable("isRecipientExist", true);
     }
-
 }

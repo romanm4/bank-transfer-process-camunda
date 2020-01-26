@@ -6,7 +6,7 @@ import com.ws.CheckPossibilityServiceResponse;
 import com.ws.ObjectFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;;import java.util.Map;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CheckClientFoundsFacade extends AbstractTransferFacade {

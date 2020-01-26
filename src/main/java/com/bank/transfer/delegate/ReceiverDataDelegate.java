@@ -9,6 +9,7 @@ public class ReceiverDataDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+        delegateExecution.setVariable("isRecipientExist", true);
         System.out.println("ReceiverDataDelegate");
     }
 }

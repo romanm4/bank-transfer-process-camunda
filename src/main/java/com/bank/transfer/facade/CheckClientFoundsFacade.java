@@ -1,40 +1,43 @@
 package com.bank.transfer.facade;
 
-import com.bank.transfer.api.ws.SoapWebServiceConnector;
-import com.bank.transfer.api.ws.wsdl.CheckPossibilityServiceRequest;
-import com.bank.transfer.api.ws.wsdl.CheckPossibilityServiceResponse;
+import com.ws.CheckPossibilityServicePortType;
+import com.ws.CheckPossibilityServiceRequest;
+import com.ws.CheckPossibilityServiceResponse;
+import com.ws.ObjectFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.ws.client.core.WebServiceTemplate;
-
+import org.springframework.stereotype.Component;;import java.util.Map;
 
 @Component
 public class CheckClientFoundsFacade extends AbstractTransferFacade {
 
     @Autowired
-    private WebServiceTemplate webServiceTemplate;
+    private CheckPossibilityServicePortType checkPossibilityServicePortType;
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private HttpEntity<String> httpEntity;
-
-    @Value("${mock.soap.check-possibility}")
-    private String url;
+    private ObjectFactory objectFactory;
 
     public void executeCheckClientFounds(DelegateExecution delegateExecution) {
-        CheckPossibilityServiceRequest request = new CheckPossibilityServiceRequest();
-        request.setAccountNumber("123");
-        request.setCurrencyType("123");
-        request.setTransferAmount(123);
-        CheckPossibilityServiceResponse response =
-                (CheckPossibilityServiceResponse) webServiceTemplate.marshalSendAndReceive(url, request);
-        delegateExecution.setVariable("isInsufficient", true);
+        CheckPossibilityServiceRequest request =
+                getInitCheckPossibilityServiceRequest(delegateExecution);
+        CheckPossibilityServiceResponse response = checkPossibilityServicePortType.checkPossibility(request);
+        setInsufficientStatusByResponse(response, delegateExecution);
+    }
+
+    private CheckPossibilityServiceRequest getInitCheckPossibilityServiceRequest(DelegateExecution delegateExecution) {
+        CheckPossibilityServiceRequest checkPossibilityServiceRequest =
+                objectFactory.createCheckPossibilityServiceRequest();
+        checkPossibilityServiceRequest.setAccountNumber((String) delegateExecution.getVariable(ProcessConstants.SENDER_ACCOUNT_NUMBER_PROCESS_VARIABLE));
+        checkPossibilityServiceRequest.setCurrencyType((String) delegateExecution.getVariable(ProcessConstants.CURRENCY_TYPE_PROCESS_VARIABLE));
+        checkPossibilityServiceRequest.setTransferAmount((Double) delegateExecution.getVariable(ProcessConstants.TRANSFER_AMOUNT_PROCESS_VARIABLE));
+        return checkPossibilityServiceRequest;
+    }
+
+    private void setInsufficientStatusByResponse(CheckPossibilityServiceResponse response, DelegateExecution delegateExecution) {
+        if (response.getStatus().equals(ResponseConstants.CLIENT_FOUNDS_RESPONSE_STATUS))
+            delegateExecution.setVariable(ProcessConstants.IS_INSUFFICIENT_PROCESS_VARIABLE, true);
+        else
+            delegateExecution.setVariable(ProcessConstants.IS_INSUFFICIENT_PROCESS_VARIABLE, false);
     }
 
 }

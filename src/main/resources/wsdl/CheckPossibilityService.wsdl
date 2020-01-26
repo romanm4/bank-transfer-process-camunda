@@ -1,68 +1,61 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://ws.com" xmlns:impl="http://ws.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:intf="http://ws.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/">
-    <wsdl:types>
-        <schema elementFormDefault="qualified" targetNamespace="http://ws.com" xmlns="http://www.w3.org/2001/XMLSchema">
-            <element name="checkPossibility">
-                <complexType>
-                    <sequence>
-                        <element name="request" type="impl:CheckPossibilityServiceRequest"/>
-                    </sequence>
-                </complexType>
-            </element>
-            <complexType name="CheckPossibilityServiceRequest">
-                <sequence>
-                    <element name="accountNumber" nillable="true" type="xsd:string"/>
-                    <element name="currencyType" nillable="true" type="xsd:string"/>
-                    <element name="transferAmount" type="xsd:double"/>
-                </sequence>
-            </complexType>
-            <element name="checkPossibilityResponse">
-                <complexType>
-                    <sequence>
-                        <element name="checkPossibilityReturn" type="impl:CheckPossibilityServiceResponse"/>
-                    </sequence>
-                </complexType>
-            </element>
-            <complexType name="CheckPossibilityServiceResponse">
-                <sequence>
-                    <element name="accountNumber" nillable="true" type="xsd:string"/>
-                    <element name="messageInfo" nillable="true" type="xsd:string"/>
-                    <element name="status" nillable="true" type="xsd:string"/>
-                </sequence>
-            </complexType>
-        </schema>
-    </wsdl:types>
-    <wsdl:message name="checkPossibilityRequest">
-        <wsdl:part name="parameters" element="impl:checkPossibility">
-        </wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="checkPossibilityResponse">
-        <wsdl:part name="parameters" element="impl:checkPossibilityResponse">
-        </wsdl:part>
-    </wsdl:message>
-    <wsdl:portType name="CheckPossibilityService">
-        <wsdl:operation name="checkPossibility">
-            <wsdl:input name="checkPossibilityRequest" message="impl:checkPossibilityRequest">
-            </wsdl:input>
-            <wsdl:output name="checkPossibilityResponse" message="impl:checkPossibilityResponse">
-            </wsdl:output>
-        </wsdl:operation>
-    </wsdl:portType>
-    <wsdl:binding name="CheckPossibilityServiceSoapBinding" type="impl:CheckPossibilityService">
-        <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="checkPossibility">
-            <wsdlsoap:operation soapAction=""/>
-            <wsdl:input name="checkPossibilityRequest">
-                <wsdlsoap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="checkPossibilityResponse">
-                <wsdlsoap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-    </wsdl:binding>
-    <wsdl:service name="CheckPossibilityServiceService">
-        <wsdl:port name="CheckPossibilityService" binding="impl:CheckPossibilityServiceSoapBinding">
-            <wsdlsoap:address location="http://localhost:8091/CheckPossibilityService/services/CheckPossibilityService"/>
-        </wsdl:port>
-    </wsdl:service>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="CheckPossibilityService" targetNamespace="http://ws.com/">
+  <wsdl:types>
+    <xs:schema xmlns="http://ws.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.com/">
+      <xs:complexType name="checkPossibilityServiceRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+          <xs:element minOccurs="0" name="currencyType" type="xs:string"/>
+          <xs:element name="transferAmount" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkPossibilityServiceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+          <xs:element minOccurs="0" name="messageInfo" type="xs:string"/>
+          <xs:element minOccurs="0" name="status" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="checkPossibility" type="checkPossibility"/>
+      <xs:complexType name="checkPossibility">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="request" type="checkPossibilityServiceRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="checkPossibilityResponse" type="checkPossibilityResponse"/>
+      <xs:complexType name="checkPossibilityResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="checkPossibilityServiceResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="checkPossibility">
+    <wsdl:part name="parameters" element="tns:checkPossibility"> </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkPossibilityResponse">
+    <wsdl:part name="parameters" element="tns:checkPossibilityResponse"> </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CheckPossibilityServicePortType">
+    <wsdl:operation name="checkPossibility">
+      <wsdl:input name="checkPossibility" message="tns:checkPossibility"> </wsdl:input>
+      <wsdl:output name="checkPossibilityResponse" message="tns:checkPossibilityResponse"> </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CheckPossibilityServiceSoapBinding" type="tns:CheckPossibilityServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="checkPossibility">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="checkPossibility">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="checkPossibilityResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CheckPossibilityService">
+    <wsdl:port name="CheckPossibilityServicePort" binding="tns:CheckPossibilityServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ws/CheckPossibilityService"/>
+    </wsdl:port>
+  </wsdl:service>
 </wsdl:definitions>

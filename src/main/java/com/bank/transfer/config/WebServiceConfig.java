@@ -1,36 +1,30 @@
 package com.bank.transfer.config;
 
-import com.bank.transfer.api.ws.SoapWebServiceConnector;
+import com.ws.CheckPossibilityServicePortType;
+import com.ws.ObjectFactory;
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.ws.client.core.WebServiceTemplate;
 
 @Configuration
 public class WebServiceConfig {
 
     @Value("${mock.soap.check-possibility}")
-    private String uri;
+    private String url;
 
     @Bean
-    public Jaxb2Marshaller getJaxb2Marshaller() {
-        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("com.bank.transfer.api.ws.wsdl");
-        return marshaller;
+    public CheckPossibilityServicePortType getCheckPossibilityServicePortType() {
+        JaxWsProxyFactoryBean jaxWsProxyFactoryBean =
+                new JaxWsProxyFactoryBean();
+        jaxWsProxyFactoryBean.setServiceClass(CheckPossibilityServicePortType.class);
+        jaxWsProxyFactoryBean.setAddress(url);
+
+        return (CheckPossibilityServicePortType) jaxWsProxyFactoryBean.create();
     }
 
     @Bean
-    public WebServiceTemplate getWebServiceTemplate(Jaxb2Marshaller jaxb2Marshaller) {
-        return new WebServiceTemplate(jaxb2Marshaller);
-    }
-
-    @Bean
-    public SoapWebServiceConnector getSoapWebServiceConnector(Jaxb2Marshaller jaxb2Marshaller) {
-        SoapWebServiceConnector client = new SoapWebServiceConnector();
-        client.setDefaultUri(uri);
-        client.setMarshaller(jaxb2Marshaller);
-        client.setUnmarshaller(jaxb2Marshaller);
-        return client;
+    public ObjectFactory getObjectFactory() {
+        return new ObjectFactory();
     }
 }

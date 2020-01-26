@@ -1,5 +1,7 @@
 server:
-  port: 8888
+  port: 8080
+cxf:
+  path: /ws/CheckPossibilityService
 activemq:
   broker-url: tcp://localhost:61616
   user: admin
@@ -17,4 +19,4 @@ camunda.bpm:
     create: All tasks
 mock:
   soap:
-    check-possibility: http://localhost:8091/CheckPossibilityService/services/CheckPossibilityService
+    check-possibility: http://localhost:9090/ws/CheckPossibilityService

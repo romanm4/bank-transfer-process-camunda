@@ -30,7 +30,7 @@
     <bpmn:startEvent id="StartEvent_0bj7s4q" name="Start">
       <bpmn:outgoing>SequenceFlow_0o5yq1y</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="Task_14714yh" name="Get receiver data" camunda:delegateExpression="${receiverDataDelegate}">
+    <bpmn:serviceTask id="Task_14714yh" name="checkRecipientInSystem" camunda:delegateExpression="${checkRecipientInSystemDelegate}">
       <bpmn:incoming>SequenceFlow_0lv91pm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1x1y6jl</bpmn:outgoing>
     </bpmn:serviceTask>

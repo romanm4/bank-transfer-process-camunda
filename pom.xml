@@ -96,6 +96,9 @@
                 <wsdlOption>
                   <wsdl>${basedir}/src/main/resources/wsdl/CheckPossibilityService.wsdl</wsdl>
                 </wsdlOption>
+                <wsdlOption>
+                  <wsdl>${basedir}/src/main/resources/wsdl/CheckRecipientService.wsdl</wsdl>
+                </wsdlOption>
               </wsdlOptions>
             </configuration>
             <goals>

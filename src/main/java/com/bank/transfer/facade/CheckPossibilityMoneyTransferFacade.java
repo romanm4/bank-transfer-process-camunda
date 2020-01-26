@@ -1,11 +1,12 @@
 package com.bank.transfer.facade;
 
-import com.ws.CheckPossibilityServicePortType;
-import com.ws.CheckPossibilityServiceRequest;
-import com.ws.CheckPossibilityServiceResponse;
-import com.ws.ObjectFactory;
+import com.ws.check_possibility_service.CheckPossibilityServicePortType;
+import com.ws.check_possibility_service.CheckPossibilityServiceRequest;
+import com.ws.check_possibility_service.CheckPossibilityServiceResponse;
+import com.ws.check_possibility_service.ObjectFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,7 @@ public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade 
     private CheckPossibilityServicePortType checkPossibilityServicePortType;
 
     @Autowired
+    @Qualifier("checkPossibilityObjectFactory")
     private ObjectFactory objectFactory;
 
     public void executeCheckClientFounds(DelegateExecution delegateExecution) {

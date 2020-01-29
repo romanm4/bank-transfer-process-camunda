@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="WithdrawMoneyFromSendersCardService" targetNamespace="http://withdraw_money_from_senders_card.ws.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://withdraw_money_from_senders_card.ws.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns="http://withdraw_money_from_senders_card.ws.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://withdraw_money_from_senders_card.ws.com/">
+  <xs:complexType name="withdrawMoneyFromSendersCardServiceRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="amount" type="xs:string"/>
+      <xs:element minOccurs="0" name="currency" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="withdrawMoneyFromSendersCardServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="withdrawMoneyFromSendersCard" type="withdrawMoneyFromSendersCard"/>
+  <xs:complexType name="withdrawMoneyFromSendersCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="withdrawMoneyFromSendersCardServiceRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="withdrawMoneyFromSendersCardResponse" type="withdrawMoneyFromSendersCardResponse"/>
+  <xs:complexType name="withdrawMoneyFromSendersCardResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="withdrawMoneyFromSendersCardServiceResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="withdrawMoneyFromSendersCardResponse">
+    <wsdl:part name="parameters" element="tns:withdrawMoneyFromSendersCardResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="withdrawMoneyFromSendersCard">
+    <wsdl:part name="parameters" element="tns:withdrawMoneyFromSendersCard">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="WithdrawMoneyFromSendersCardServicePortType">
+    <wsdl:operation name="withdrawMoneyFromSendersCard">
+      <wsdl:input name="withdrawMoneyFromSendersCard" message="tns:withdrawMoneyFromSendersCard">
+    </wsdl:input>
+      <wsdl:output name="withdrawMoneyFromSendersCardResponse" message="tns:withdrawMoneyFromSendersCardResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WithdrawMoneyFromSendersCardServiceSoapBinding" type="tns:WithdrawMoneyFromSendersCardServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="withdrawMoneyFromSendersCard">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="withdrawMoneyFromSendersCard">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="withdrawMoneyFromSendersCardResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WithdrawMoneyFromSendersCardService">
+    <wsdl:port name="WithdrawMoneyFromSendersCardServicePort" binding="tns:WithdrawMoneyFromSendersCardServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ws/WithdrawMoneyFromSendersCardService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

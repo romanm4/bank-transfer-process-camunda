@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="MakeMoneyTransferService" targetNamespace="http://make_money_transfer.ws.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://make_money_transfer.ws.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema xmlns="http://make_money_transfer.ws.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://make_money_transfer.ws.com/">
+      <xs:complexType name="makeMoneyTransferServiceRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+          <xs:element minOccurs="0" name="code" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="makeMoneyTransferServiceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+          <xs:element minOccurs="0" name="status" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="makeMoneyTransfer" type="makeMoneyTransfer"/>
+      <xs:complexType name="makeMoneyTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="request" type="makeMoneyTransferServiceRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="makeMoneyTransferResponse" type="makeMoneyTransferResponse"/>
+      <xs:complexType name="makeMoneyTransferResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="makeMoneyTransferServiceResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="makeMoneyTransferResponse">
+    <wsdl:part name="parameters" element="tns:makeMoneyTransferResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="makeMoneyTransfer">
+    <wsdl:part name="parameters" element="tns:makeMoneyTransfer">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MakeMoneyTransferServicePortType">
+    <wsdl:operation name="makeMoneyTransfer">
+      <wsdl:input name="makeMoneyTransfer" message="tns:makeMoneyTransfer">
+      </wsdl:input>
+      <wsdl:output name="makeMoneyTransferResponse" message="tns:makeMoneyTransferResponse">
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MakeMoneyTransferServiceSoapBinding" type="tns:MakeMoneyTransferServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="makeMoneyTransfer">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="makeMoneyTransfer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="makeMoneyTransferResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MakeMoneyTransferService">
+    <wsdl:port name="MakeMoneyTransferServicePort" binding="tns:MakeMoneyTransferServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ws/MakeMoneyTransferService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

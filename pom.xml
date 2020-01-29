@@ -99,6 +99,12 @@
                 <wsdlOption>
                   <wsdl>${basedir}/src/main/resources/wsdl/CheckRecipientService.wsdl</wsdl>
                 </wsdlOption>
+                <wsdlOption>
+                  <wsdl>${basedir}/src/main/resources/wsdl/WithdrawMoneyFromSendersCardService.wsdl</wsdl>
+                </wsdlOption>
+                <wsdlOption>
+                  <wsdl>${basedir}/src/main/resources/wsdl/MakeMoneyTransferService.wsdl</wsdl>
+                </wsdlOption>
               </wsdlOptions>
             </configuration>
             <goals>

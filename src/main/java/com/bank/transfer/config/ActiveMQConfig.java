@@ -23,7 +23,7 @@ public class ActiveMQConfig {
     private String BROKER_PASSWORD;
 
     @Bean
-    public ActiveMQConnectionFactory connectionFactory() {
+    public ActiveMQConnectionFactory getActiveMQConnectionFactory() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(BROKER_URL);
         connectionFactory.setPassword(BROKER_USERNAME);
@@ -33,22 +33,22 @@ public class ActiveMQConfig {
     }
 
     @Bean
-    public JmsTemplate jmsTemplate() {
+    public JmsTemplate getJmsTemplate() {
         JmsTemplate template = new JmsTemplate();
-        template.setConnectionFactory(connectionFactory());
+        template.setConnectionFactory(getActiveMQConnectionFactory());
         return template;
     }
 
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
+    public DefaultJmsListenerContainerFactory getDefaultJmsListenerContainerFactory() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
+        factory.setConnectionFactory(getActiveMQConnectionFactory());
         factory.setConcurrency("1-1");
         return factory;
     }
 
     @Bean
-    public MessageConverter jacksonJmsMessageConverter() {
+    public MessageConverter getMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");

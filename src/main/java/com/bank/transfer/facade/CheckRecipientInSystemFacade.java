@@ -25,12 +25,13 @@ public class CheckRecipientInSystemFacade extends AbstractTransferFacade impleme
 
     @Override
     public void invokeSoapWebService(DelegateExecution delegateExecution) {
-        CheckRecipientServiceRequest request = getInitCheckRecipientServiceRequest(delegateExecution);
+        CheckRecipientServiceRequest request = (CheckRecipientServiceRequest) getInitRequest(delegateExecution);
         CheckRecipientServiceResponse response = checkRecipientServicePortType.checkRecipient(request);
-        setRecipientExistStatusByResponse(response, delegateExecution);
+        mapResponseToExecutionVariables(response, delegateExecution);
     }
 
-    private CheckRecipientServiceRequest getInitCheckRecipientServiceRequest(DelegateExecution delegateExecution) {
+    @Override
+    public Object getInitRequest(DelegateExecution delegateExecution) {
         Map<String, Object> transferRecipient =
                 (Map<String, Object>) delegateExecution.getVariable(ProcessConstants.TRANSFER_RECIPIENT_PROCESS_VARIABLE);
         CheckRecipientServiceRequest request = objectFactory.createCheckRecipientServiceRequest();
@@ -38,8 +39,10 @@ public class CheckRecipientInSystemFacade extends AbstractTransferFacade impleme
         return request;
     }
 
-    private void setRecipientExistStatusByResponse(CheckRecipientServiceResponse response, DelegateExecution delegateExecution) {
-        if (response.getStatus().equals(ResponseConstants.TRANSFER_RECIPIENT_RESPONSE_STATUS))
+    @Override
+    public void mapResponseToExecutionVariables(Object response, DelegateExecution delegateExecution) {
+        CheckRecipientServiceResponse checkRecipientServiceResponse = (CheckRecipientServiceResponse) response;
+        if (checkRecipientServiceResponse.getStatus().equals(ResponseConstants.TRANSFER_RECIPIENT_RESPONSE_STATUS))
             delegateExecution.setVariable("isRecipientExist", true);
     }
 }

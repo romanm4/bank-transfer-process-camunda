@@ -24,12 +24,13 @@ public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade 
     @Override
     public void invokeSoapWebService(DelegateExecution delegateExecution) {
         CheckPossibilityServiceRequest request =
-                getInitCheckPossibilityServiceRequest(delegateExecution);
+                (CheckPossibilityServiceRequest) getInitRequest(delegateExecution);
         CheckPossibilityServiceResponse response = checkPossibilityServicePortType.checkPossibility(request);
-        setInsufficientStatusByResponse(response, delegateExecution);
+        mapResponseToExecutionVariables(response, delegateExecution);
     }
 
-    private CheckPossibilityServiceRequest getInitCheckPossibilityServiceRequest(DelegateExecution delegateExecution) {
+    @Override
+    public Object getInitRequest(DelegateExecution delegateExecution) {
         CheckPossibilityServiceRequest checkPossibilityServiceRequest =
                 objectFactory.createCheckPossibilityServiceRequest();
         checkPossibilityServiceRequest.setAccountNumber((String) delegateExecution.getVariable(ProcessConstants.SENDER_ACCOUNT_NUMBER_PROCESS_VARIABLE));
@@ -38,8 +39,10 @@ public class CheckPossibilityMoneyTransferFacade extends AbstractTransferFacade 
         return checkPossibilityServiceRequest;
     }
 
-    private void setInsufficientStatusByResponse(CheckPossibilityServiceResponse response, DelegateExecution delegateExecution) {
-        if (response.getStatus().equals(ResponseConstants.CLIENT_FOUNDS_RESPONSE_STATUS))
+    @Override
+    public void mapResponseToExecutionVariables(Object response, DelegateExecution delegateExecution) {
+        CheckPossibilityServiceResponse checkPossibilityServiceResponse = (CheckPossibilityServiceResponse) response;
+        if (checkPossibilityServiceResponse.getStatus().equals(ResponseConstants.CLIENT_FOUNDS_RESPONSE_STATUS))
             delegateExecution.setVariable(ProcessConstants.IS_INSUFFICIENT_PROCESS_VARIABLE, true);
     }
 }
